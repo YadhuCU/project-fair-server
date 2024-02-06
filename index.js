@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(router); // always after cors
+app.use("/uploads", express.static("./uploads"));
 
 app.listen(PORT, () => {
   console.log("Sever is runnig at " + PORT);
