@@ -8,6 +8,10 @@ require("./db/connection.js");
 const app = express();
 
 app.use(cors());
+app.use((req, res, next) => {
+  console.log(req.method, req.path);
+  next();
+});
 app.use(express.json());
 app.use(router); // always after cors
 app.use("/uploads", express.static("./uploads"));
