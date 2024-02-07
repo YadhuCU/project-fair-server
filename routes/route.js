@@ -22,5 +22,11 @@ router.get("/home-projects", projectController.getHomeProjects);
 router.get("/all-projects", jwtMiddleware, projectController.getAllProjects);
 // get user projects
 router.get("/user-projects", jwtMiddleware, projectController.getUserProjects);
-
+// edit project.
+router.put(
+  "/project/edit/:pid",
+  jwtMiddleware,
+  multerMiddleware.single("projectImage"),
+  projectController.editProject,
+);
 module.exports = router;

@@ -58,3 +58,37 @@ exports.getUserProjects = async (req, res) => {
     res.status(404).json(err);
   }
 };
+
+// edit project.
+exports.editProject = async (req, res) => {
+  const { title, github, website, languages, overview, projectImage } =
+    req.body;
+  const uploadImage = req.file ? req.file.filename : projectImage;
+  const userId = req.payload;
+  const { pid } = req.params;
+
+  console.log("userID", userId);
+
+  try {
+    const updateProject = await projects.findByIdAndUpdate(
+      { _id: pid },
+      {
+        title,
+        languages,
+        overview,
+        github,
+        website,
+        projectImage: uploadImage,
+        userId,
+      },
+      { new: true },
+    );
+
+    await updateProject.save();
+
+    res.status(201).json(updateProject);
+  } catch (error) {
+    console.log(error);
+    res.status(401).json(error);
+  }
+};
