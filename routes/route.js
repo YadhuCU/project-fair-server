@@ -29,4 +29,10 @@ router.put(
   multerMiddleware.single("projectImage"),
   projectController.editProject,
 );
+// delete project
+router.delete(
+  "/project/delete/:pid",
+  jwtMiddleware,
+  projectController.deleteProject,
+);
 module.exports = router;

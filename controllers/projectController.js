@@ -67,8 +67,6 @@ exports.editProject = async (req, res) => {
   const userId = req.payload;
   const { pid } = req.params;
 
-  console.log("userID", userId);
-
   try {
     const updateProject = await projects.findByIdAndUpdate(
       { _id: pid },
@@ -86,7 +84,23 @@ exports.editProject = async (req, res) => {
 
     await updateProject.save();
 
-    res.status(201).json(updateProject);
+    res.status(200).json(updateProject);
+  } catch (error) {
+    console.log(error);
+    res.status(401).json(error);
+  }
+};
+
+exports.deleteProject = async (req, res) => {
+  const { pid } = req.params;
+  console.log("pid", pid);
+
+  try {
+    const deleteData = await projects.findByIdAndDelete({ _id: pid });
+
+    console.log("deleteData", deleteData);
+
+    res.status(200).json(deleteData);
   } catch (error) {
     console.log(error);
     res.status(401).json(error);
