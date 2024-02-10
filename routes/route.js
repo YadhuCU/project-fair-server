@@ -35,4 +35,11 @@ router.delete(
   jwtMiddleware,
   projectController.deleteProject,
 );
+// update User.
+router.put(
+  "/user/edit",
+  jwtMiddleware,
+  multerMiddleware.single("profileImage"),
+  userController.editUser,
+);
 module.exports = router;
